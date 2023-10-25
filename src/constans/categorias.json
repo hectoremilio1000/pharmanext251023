@@ -1,0 +1,61 @@
+{
+  "Supervisión médica": [],
+  "Nariz y Oídos": [],
+  "Dolor": [
+    "Musculares y desinflamatorios",
+    "Analgésicos",
+    "Anestésicos",
+    "Hemorroides",
+    "Analgésicos Infantil",
+    "Cólicos"
+  ],
+  "Estomacal": [
+    "Antiulcerosos",
+    "Parásitos",
+    "Dolor y malestar",
+    "Antiácidos",
+    "Reductores de peso",
+    "Laxantes",
+    "Digestivos",
+    "Sueros orales",
+    "Antidiarréicos"
+  ],
+  "Oftálmicos": [
+    "Lágrimas artificiales",
+    "Toallitas húmedas oftálmicas",
+    "Higiene lentes de contacto",
+    "Oftalmológicos",
+    "Lubricantes oculares",
+    "Lentes de Contacto"
+  ],
+  "Dermatológicos": [
+    "Tratamientos dermatológicos",
+    "Dermatitis",
+    "Gel dermatológico",
+    "Tratamientos antiacné",
+    "Cicatrizantes",
+    "Capilares"
+  ],
+  "Gripe y tos": [
+    "Tos",
+    "Descongestionantes",
+    "Antigripales",
+    "Garganta Irritada",
+    "Antialérgicas",
+    "Nebulizadores",
+    "Inhaladores"
+  ],
+  "Relajantes": ["Relajantes"],
+  "Antimicóticos": [
+    "Polvos y talcos",
+    "Soluciones",
+    "Tabletas",
+    "Geles",
+    "Aerosoles"
+  ],
+  "Genéricos": [],
+  "Tratamientos": ["Sistema Circulatorio"],
+  "Especialidades médicas": [],
+  "Corporal": ["Cuidado de Uñas"],
+  "Várices": ["Cuidado de piernas"]
+}

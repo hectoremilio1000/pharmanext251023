@@ -1,0 +1,140 @@
+type DETALLEPEDIDO @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  cantidad: String
+  precio: String
+  subtotal: String
+  pedidoID: ID! @index(name: "byPEDIDO")
+  inventarioID: ID! @index(name: "byINVENTARIO")
+}
+
+enum STATUS {
+  CREADO
+  ATENDIDO
+  ENTREGADO
+}
+
+enum TIPOENTREGA {
+  DOMICILIO
+  FARMACIA
+}
+
+type PEDIDO @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  fecha: String
+  hora: String
+  numero: String
+  total: String
+  status: STATUS
+  tipoEntrega: TIPOENTREGA
+  clientesID: ID! @index(name: "byCLIENTES")
+  DETALLEPEDIDOS: [DETALLEPEDIDO] @hasMany(indexName: "byPEDIDO", fields: ["id"])
+}
+
+type CLIENTES @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombreCompleto: String
+  direccion: String
+  whats: String
+  cp: String
+  pass: String
+  email: String
+  username: String
+  PEDIDOS: [PEDIDO] @hasMany(indexName: "byCLIENTES", fields: ["id"])
+  farmaciaID: ID! @index(name: "byFARMACIA")
+}
+
+type ImageInfo {
+  altText: String
+  format: String
+  imageType: String
+  url: String
+  galleryIndex: Int
+}
+
+type FeatureInfo {
+  code: [String]
+  comparable: Boolean
+  name: String
+  range: String
+  value: String
+}
+
+type ClassificationInfo {
+  code: String
+  name: String
+  features: [FeatureInfo]
+}
+
+type CategoryInfo {
+  code: String
+  name: String
+  url: String
+}
+
+type INVENTARIO @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  additionalDescription: String
+  antibiotic: Boolean
+  availableForPickup: Boolean
+  brandName: String
+  code: String
+  configurable: Boolean
+  description: String
+  eans: [String]
+  exclusionCode: String
+  hasDiscountPrice: String
+  isLabProduct: Boolean
+  name: String
+  naturalHealth: Boolean
+  numberOfReviews: Int
+  potentialPromotions: [String]
+  presentation: String
+  productReferences: [String]
+  providerName: String
+  purchasable: Boolean
+  registrationDate: String
+  summary: String
+  url: String
+  priceCurrencyIso: String
+  priceFormattedValue: String
+  priceType: String
+  priceValue: Float
+  categories: [CategoryInfo]
+  classifications: [ClassificationInfo]
+  labInfoCode: String
+  labInfoMessage: String
+  stockIsValueRounded: Boolean
+  stockLevel: Int
+  stockLevelStatus: String
+  numero: Int
+  images: [ImageInfo]
+  farmaciaID: ID! @index(name: "byFARMACIA")
+  DETALLEPEDIDOS: [DETALLEPEDIDO] @hasMany(indexName: "byINVENTARIO", fields: ["id"])
+}
+
+type GERENTE @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombres: String
+  userName: String
+  email: String
+  phoneNumber: String
+  confirmed: String
+  blocked: String
+  createdBy: String
+  farmaciaID: ID! @index(name: "byFARMACIA")
+}
+
+type FARMACIA @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nombre: String
+  direccion: String
+  cp: String
+  createdBy: String
+  rfc: String
+  contactPhone: String
+  codSerial: String
+  INVENTARIOS: [INVENTARIO] @hasMany(indexName: "byFARMACIA", fields: ["id"])
+  GERENTES: [GERENTE] @hasMany(indexName: "byFARMACIA", fields: ["id"])
+  CLIENTES: [CLIENTES] @hasMany(indexName: "byFARMACIA", fields: ["id"])
+}
+ 
