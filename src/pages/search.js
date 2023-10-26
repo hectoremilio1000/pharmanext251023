@@ -1,5 +1,3 @@
-// pages/search/Search.js
-"use client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -10,15 +8,16 @@ export default function Search() {
     // Obtén los parámetros GET de la URL
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
+    console.log(params);
 
     // Ahora puedes utilizar los valores de categorias y productos
     const category = params.categorias.split(",");
-    const product = params.productos.split(",");
+    // const product = params.productos.split(",");
     setCategorias(category);
-    setProductos(product);
+    // setProductos(product);
 
     console.log("Categorías:", category);
-    console.log("Productos:", product);
+    // console.log("Productos:", product);
 
     // Aquí puedes realizar cualquier lógica adicional con estos parámetros
   }, []);

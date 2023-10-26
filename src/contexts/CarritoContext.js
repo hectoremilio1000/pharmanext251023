@@ -15,13 +15,13 @@ export function CarritoProvider({ children }) {
   const addItemToCart = (product) => {
     product.quantity = 1;
     const newProducto = {
-      id: product.code,
+      id: product.id,
       description: product?.additionalDescription,
       quantity: 1,
       title: product?.name,
       image: product?.images?.[1]?.url,
-      price: product.price.value,
-      total: product.price.value,
+      price: product.priceValue,
+      total: product.priceValue,
     };
     const newCarrito = [...carrito, newProducto];
     // console.log(newProducto);

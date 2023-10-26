@@ -39,8 +39,8 @@ export default function CartDrawer() {
     }
   };
   const CartItemsList = () => {
-    return carrito.map((product) => (
-      <li className="flex py-6">
+    return carrito.map((product, index) => (
+      <li key={index} className="flex py-6">
         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
           <img
             src={product.image}

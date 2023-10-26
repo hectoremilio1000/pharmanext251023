@@ -2,6 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import pro from "../../constans/productos.json";
 import { useCarrito } from "@/contexts/CarritoContext";
+import { API, graphqlOperation } from "aws-amplify";
+import { listINVENTARIOS } from "@/graphql/queries";
 const ProductList = () => {
   // aument y decrementar carrito
   const { carrito, addItemToCart, incrementItemInCart, decrementItemInCart } =
@@ -21,8 +23,32 @@ const ProductList = () => {
   const endIndex = startIndex + productsPerPage;
 
   // Obtener los productos de la página actual utilizando slice
-  const displayedProducts = pro.products.slice(startIndex, endIndex);
+  const [medicamentos, setMedicamentos] = useState([]);
+  const displayedProducts = medicamentos.slice(startIndex, endIndex);
 
+  const fetchMedicamentos = async () => {
+    try {
+      let nextToken = null;
+      do {
+        const result = await API.graphql(
+          graphqlOperation(listINVENTARIOS, {
+            // filter: { _deleted: { ne: true } },
+            limit: 1000, // Establece la cantidad de elementos por página según tus necesidades
+            nextToken: nextToken, // Pasa el token de próxima página si está disponible
+          })
+        );
+        console.log(result);
+        const data = result?.data?.listINVENTARIOS?.items || [];
+        setMedicamentos((prevMedicamentos) => [...prevMedicamentos, ...data]);
+        nextToken = result?.data?.listINVENTARIOS?.nextToken;
+      } while (nextToken);
+    } catch (error) {
+      console.error("Error al obtener medicamentos:", error);
+    }
+  };
+  useEffect(() => {
+    fetchMedicamentos();
+  }, []);
   // Calcular el número total de páginas
   const totalPages = Math.ceil(pro.products.length / productsPerPage);
 
@@ -97,13 +123,13 @@ const ProductList = () => {
                       </p>
                     </div>
                     <p className="text-sm font-medium text-gray-600">
-                      {product.price.formattedValue}
+                      {product.priceValue}
                     </p>
                   </div>
                 </div>
               </a>
               <form className="w-full">
-                {!isInCart(product.code) ? (
+                {!isInCart(product.id) ? (
                   <button
                     type="button"
                     className="bg-[#00a4cb] w-full rounded-full py-3 px-3 flex items-center duration-100 justify-between hover:bg-[#077996]  text-white"
@@ -134,7 +160,7 @@ const ProductList = () => {
                       <button
                         type="button"
                         className="text-gray-500 border border-current rounded-full w-7 h-7 flex items-center justify-center"
-                        onClick={() => decrementItemInCart(product.code)}
+                        onClick={() => decrementItemInCart(product.id)}
                       >
                         <span className="sr-only">Decrement</span>
                         <svg
@@ -154,14 +180,14 @@ const ProductList = () => {
                       </button>
                       <span className="text-gray-500 text-md">
                         {
-                          carrito.find((item) => item.id === product.code)
+                          carrito.find((item) => item.id === product.id)
                             .quantity
                         }
                       </span>
                       <button
                         type="button"
                         className="text-gray-500 border border-current rounded-full w-8 h-8 flex items-center justify-center"
-                        onClick={() => incrementItemInCart(product.code)}
+                        onClick={() => incrementItemInCart(product.id)}
                       >
                         <span className="sr-only">Increment</span>
                         <svg
@@ -216,13 +242,13 @@ const ProductList = () => {
                       </p>
                     </div>
                     <p className="text-sm font-medium text-gray-600">
-                      {product.price.formattedValue}
+                      {product.priceValue}
                     </p>
                   </div>
                 </div>
               </a>
               <form className="w-full">
-                {!isInCart(product.code) ? (
+                {!isInCart(product.id) ? (
                   <button
                     type="button"
                     className="bg-[#00a4cb] w-full rounded-full py-3 px-3 flex items-center duration-100 justify-between hover:bg-[#077996]  text-white"
@@ -253,7 +279,7 @@ const ProductList = () => {
                       <button
                         type="button"
                         className="text-gray-500 border border-current rounded-full w-7 h-7 flex items-center justify-center"
-                        onClick={() => decrementItemInCart(product.code)}
+                        onClick={() => decrementItemInCart(product.id)}
                       >
                         <span className="sr-only">Decrement</span>
                         <svg
@@ -273,14 +299,14 @@ const ProductList = () => {
                       </button>
                       <span className="text-gray-500 text-md">
                         {
-                          carrito.find((item) => item.id === product.code)
+                          carrito.find((item) => item.id === product.id)
                             .quantity
                         }
                       </span>
                       <button
                         type="button"
                         className="text-gray-500 border border-current rounded-full w-8 h-8 flex items-center justify-center"
-                        onClick={() => incrementItemInCart(product.code)}
+                        onClick={() => incrementItemInCart(product.id)}
                       >
                         <span className="sr-only">Increment</span>
                         <svg
