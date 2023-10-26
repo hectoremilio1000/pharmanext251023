@@ -13,7 +13,6 @@ import { Auth } from "aws-amplify";
 import ModalLogin from "../Login/ModalLogin";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Menu, Transition } from "@headlessui/react";
-import { useRouter } from "next/router";
 import { useCarrito } from "@/contexts/CarritoContext";
 import SearchChat from "../ChatApi/SearchChat";
 const Header = () => {
@@ -23,7 +22,6 @@ const Header = () => {
   const { carrito } = useCarrito();
   // filtering
   const { globals, setGlobals } = useContext(GlobalContext);
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // evento de scroll para header
   const [scrollingDown, setScrollingDown] = useState(false);
@@ -31,26 +29,6 @@ const Header = () => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-
-  // useEffect(() => {
-  //   let prevScrollY = window.scrollY;
-  //   const handleScroll = () => {
-  //     const scrollY = window.scrollY;
-  //     console.log(prevScrollY);
-  //     console.log(scrollY);
-  //     if (scrollY > prevScrollY) {
-  //       setScrolledDown(true);
-  //     } else {
-  //       setScrolledDown(false);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [scrolledDown]);
 
   useEffect(() => {
     let prevScrollPos = window.pageYOffset;
@@ -80,28 +58,10 @@ const Header = () => {
 
   const scrollHeader = scrollingDown ? "scroll-header" : "";
 
-  // auth next
-  // const { data: session } = useSession();
-  // console.log(session);
-  // if (session) {
-  //   return (
-  //     <>
-  //       Signed in as {session.user.email} <br />
-  //       <button onClick={() => signOut()}>Sign out</button>
-  //     </>
-  //   );
-  // }
-  // return (
-  //   <>
-  //     Not signed in <br />
-  //     <button onClick={() => signIn()}>Sign in</button>
-  //   </>
-  // );
   const [loadingLogin, setLoadingLogin] = useState(false);
   const autenticacionLogin = () => {
     setLoadingLogin(true);
   };
-  const router = useRouter();
   const handleSession = async () => {
     await Auth.signOut();
     authContext.fetchUser();
@@ -163,38 +123,7 @@ const Header = () => {
             </div>
 
             <div className="flex flex-1 items-center justify-between gap-8">
-              {/* <nav
-              aria-label="Site Nav"
-              className="hidden lg:justify-center w-full lg:flex lg:gap-4 lg:text-sm lg:font-medium  lg:tracking-wide lg:text-gray-700"
-            >
-              <Link
-                href="/about"
-                className="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-[#0097bd]"
-              >
-                Sobre Nosotros
-              </Link>
-
-              <Link
-                href="/news"
-                className="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-[#0097bd]"
-              >
-                Ofertas y Promociones
-              </Link>
-              <Link
-                href="/products"
-                className="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-[#0097bd]"
-              >
-                Productos
-              </Link>
-              <Link
-                href="/contact"
-                className="block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-[#0097bd]"
-              >
-                Contacto
-              </Link>
-            </nav> */}
               <SearchChat />
-
               <div className="flex items-center">
                 <div className="flex items-center">
                   <span className="">
