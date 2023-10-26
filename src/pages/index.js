@@ -56,7 +56,6 @@ export default function Home() {
         {/* <link rel="apple-touch-icon" href="../logo192.png" />
         <link rel="manifest" href="../manifest.json" /> */}
       </Head>
-
       <BannerPortada />
       <OfertaTime />
       {/* <Portada setShowResponse={setShowResponse} setRespuesta={setRespuesta} /> */}
