@@ -1,13 +1,7 @@
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { MdSearch } from "react-icons/md";
-
-import productosList from "../../constans/constantesclasif.json";
-import { API, graphqlOperation } from "aws-amplify";
-import { listINVENTARIOS } from "@/graphql/queries";
-import Link from "next/link";
+import React from "react";
 import SearchChat from "../ChatApi/SearchChat";
 const Portada = ({ setShowResponse, setRespuesta }) => {
+  console.log(setShowResponse, setRespuesta);
   return (
     <div className="py-[80px] min-h-[100vh] bg-[#e1f9ff] flex flex-wrap md:flex-nowrap items-center gap-4 justify-between w-full px-4 ">
       <div className="w-full max-w-5xl mx-auto">

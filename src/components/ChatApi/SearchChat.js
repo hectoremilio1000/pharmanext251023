@@ -17,17 +17,7 @@ const SearchChat = () => {
   const api = "http://localhost:5001/botapi";
   const [loadingResponse, setLoadingResponse] = useState(true);
   const [messageUserNow, setMessageUserNow] = useState("");
-  const [messageHistorial, setMessageHistorial] = useState([
-    // {
-    //   role: "system",
-    //   content:
-    //     "Eres un asistente virtual, eres un doctor que el fin objetivo es que recetes un medicamento, puedes preguntar siempre para llegar al fondo del problema de un paciente que te escribe y tu corriges su escritura con : quisiste decir.",
-    // },
-    // 3 roles
-    // system para definir que va a hacer o como actuara
-    // user es lo que escribe el usuario product o discomfort
-    // assistant que es lo que responde
-  ]);
+  const [messageHistorial, setMessageHistorial] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [nextToken, setNextToken] = useState(null);

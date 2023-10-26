@@ -16,20 +16,15 @@ import { Menu, Transition } from "@headlessui/react";
 import { useCarrito } from "@/contexts/CarritoContext";
 import SearchChat from "../ChatApi/SearchChat";
 const Header = () => {
-  const authContext = useAuthContext();
-  console.log(authContext);
+  // ------estados y contextos-------------
 
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const authContext = useAuthContext();
   const { carrito } = useCarrito();
-  // filtering
   const { globals, setGlobals } = useContext(GlobalContext);
 
   // evento de scroll para header
   const [scrollingDown, setScrollingDown] = useState(false);
-  // const [scrolledDown, setScrolledDown] = useState(false);
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
   useEffect(() => {
     let prevScrollPos = window.pageYOffset;
 
@@ -57,8 +52,11 @@ const Header = () => {
   }, [scrollingDown]);
 
   const scrollHeader = scrollingDown ? "scroll-header" : "";
+  // FUNCION DE EVALUACION DE CLASES
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
-  const [loadingLogin, setLoadingLogin] = useState(false);
   const autenticacionLogin = () => {
     setLoadingLogin(true);
   };
